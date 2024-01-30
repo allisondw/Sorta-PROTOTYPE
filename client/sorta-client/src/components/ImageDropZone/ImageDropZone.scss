@@ -1,0 +1,20 @@
+.drop-zone {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    background-color: white;
+    transition: background-color 0.3s;
+
+    &.drag-over {
+      background-color: #eee;
+    }
+
+    &.hidden {
+      z-index: -1;
+    }
+}
