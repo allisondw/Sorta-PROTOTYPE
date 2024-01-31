@@ -9,6 +9,7 @@ const MainPage = () => {
   const [originalImageData, setOriginalImageData] = useState(null);
   const [colorChannel, setColorChannel] = useState(null);
   const [sortingDirection, setSortingDirection] = useState('horizontal');
+  const [imageIsLandscape, setImageIsLandscape] = useState(true);
 
   const handleImageUpload = (fileOrEvent) => {
     let file = fileOrEvent instanceof File ? fileOrEvent : fileOrEvent.target.files[0];
@@ -28,6 +29,7 @@ const MainPage = () => {
       ctx.drawImage(img, 0, 0, img.width, img.height);
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
       setOriginalImageData(imageData);
+      setImageIsLandscape(img.width > img.height);
     };
   
     img.src = imageUrl;
@@ -38,6 +40,7 @@ const MainPage = () => {
       drawImageOnCanvas(image);
     }
   }, [image]);
+
 
   const processImage = () => {
     if (!originalImageData) return;
@@ -56,6 +59,12 @@ const MainPage = () => {
     ctx.putImageData(imageData, 0, 0);
     setIsProcessing(false);
   };
+
+  const clearSettings = () => {
+    setColorChannel(null);
+    setSortingDirection('horizontal');
+    setSortingThreshold(100);
+  }
 
 
   const sortPixels = (pixels, sortingThreshold, colorChannel, direction) => {
@@ -150,54 +159,55 @@ const MainPage = () => {
   };
 
   return (
-    <div className='main-page'>
+    <section className={`${imageIsLandscape ? 'main-page--landscape' : 'main-page--portrait'}`}>
       <div className='main-page__canvas-container'>
         <canvas ref={canvasRef} className='main-page__canvas'></canvas> 
       </div>
-      <div className='main-page__tool-bar'>
-      <input type="file" onChange={handleImageUpload} disabled={isProcessing} className='upload'/>
-      <button onClick={processImage} disabled={!image || isProcessing} className='process-img'>Process Image</button>
-      <input 
+      <div className={`${imageIsLandscape ? 'landscape-tool-bar' : 'portrait-tool-bar'}`}>
+        <input type="file" onChange={handleImageUpload} disabled={isProcessing} className='upload'/>
+        <button onClick={processImage} disabled={!image || isProcessing} className='process-img'>Process Image</button>
+        <input 
           type="range" 
           min="0" 
           max="255" 
           value={sortingThreshold} 
           onChange={(e) => setSortingThreshold(Number(e.target.value))}
           className='thresh-slider'
-      />
-      <span className='thresh-slider-label'>Threshold: {sortingThreshold}</span>
-      <div>
-        <input 
-          type="radio" 
-          value="red" 
-          checked={colorChannel === 'red'} 
-          onChange={() => setColorChannel('red')} 
-          className='rgb-radio'
-        /> Red
-        <input 
-          type="radio" 
-          value="green" 
-          checked={colorChannel === 'green'} 
-          onChange={() => setColorChannel('green')} 
-          className='rgb-radio'
-        /> Green
-        <input 
-          type="radio" 
-          value="blue" 
-          checked={colorChannel === 'blue'} 
-          onChange={() => setColorChannel('blue')} 
-          className='rgb-radio'
-        /> Blue
+        />
+        <span className='thresh-slider-label'>Threshold: {sortingThreshold}</span>
+        <div>
+          <input 
+            type="radio" 
+            value="red" 
+            checked={colorChannel === 'red'} 
+            onChange={() => setColorChannel('red')} 
+            className='rgb-radio'
+          /> Red
+          <input 
+            type="radio" 
+            value="green" 
+            checked={colorChannel === 'green'} 
+            onChange={() => setColorChannel('green')} 
+            className='rgb-radio'
+          /> Green
+          <input 
+            type="radio" 
+            value="blue" 
+            checked={colorChannel === 'blue'} 
+            onChange={() => setColorChannel('blue')} 
+            className='rgb-radio'
+          /> Blue
+        </div>
+        <div>
+          <label className='sorting-direction-label'>Sorting Direction:</label>
+          <select value={sortingDirection} onChange={(event) => setSortingDirection(event.target.value)} className='sorting-direction-dropdown'>
+            <option value="horizontal">Horizontal</option>
+            <option value="vertical">Vertical</option>
+          </select>
+        </div>
+        <button onClick={clearSettings} className='clear-settings-btn'>Clear Settings</button>
       </div>
-      <div>
-        <label>Sorting Direction:</label>
-        <select value={sortingDirection} onChange={(e) => setSortingDirection(e.target.value)} className='sorting-direction-dropdown'>
-          <option value="horizontal">Horizontal</option>
-          <option value="vertical">Vertical</option>
-        </select>
-      </div>
-      </div>
-    </div>
+    </section>
   );
 }
 
