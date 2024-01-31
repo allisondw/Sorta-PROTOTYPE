@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import "./MainPage.scss";
+import axios from 'axios';
+import {v4 as uuidv4} from 'uuid';
 
 const MainPage = () => {
   const [image, setImage] = useState(null);
@@ -66,6 +68,33 @@ const MainPage = () => {
     setSortingThreshold(100);
   }
 
+  const handleSave = async () => {
+    const id = uuidv4();
+    const canvas = canvasRef.current;
+  
+    canvas.toBlob(async (blob) => {
+      const formData = new FormData();
+      formData.append('image', blob, `${id}.png`);
+      formData.append('id', id);
+      formData.append('settings', JSON.stringify({
+        sortingThreshold,
+        colorChannel,
+        sortingDirection,
+
+      }));
+  
+      try {
+        const res = await axios.post('http://localhost:8080/api/save', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        console.log('Image and settings saved', res.data);
+      } catch (error) {
+        console.error('Error saving image and settings: ', error);
+      };
+    }, 'image/png');
+  };
 
   const sortPixels = (pixels, sortingThreshold, colorChannel, direction) => {
     const rowLength = originalImageData.width * 4;
@@ -205,6 +234,7 @@ const MainPage = () => {
             <option value="vertical">Vertical</option>
           </select>
         </div>
+        <button onClick={handleSave} className='save-image-btn'>Save Image</button>
         <button onClick={clearSettings} className='clear-settings-btn'>Clear Settings</button>
       </div>
     </section>
