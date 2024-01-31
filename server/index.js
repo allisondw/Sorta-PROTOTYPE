@@ -41,6 +41,44 @@ app.post('/api/save', upload.single('image'), (req, res) => {
   res.status(200).json({ message: 'Image and settings saved', id: id, time: timestamp });
 });
 
+
+app.get('/api/images', (req, res) => {
+    const dataDir = path.join(__dirname, 'data');
+    const files = fs.readdirSync(dataDir);
+  
+    const images = files
+      .filter(file => file.endsWith('.png')) 
+      .map(file => {
+        const id = path.basename(file, '.png');
+        const settingsPath = path.join(dataDir, `${id}-settings.json`);
+        let settings = {};
+  
+        if (fs.existsSync(settingsPath)) {
+          settings = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));
+        }
+  
+        return {
+          id: id,
+          imageUrl: `/api/image/${id}`, 
+          settings: settings
+        };
+      });
+  
+    res.json(images);
+});
+
+app.get('/api/image/:id', (req, res) => {
+    const dataDir = path.join(__dirname, 'data');
+    const imagePath = path.join(dataDir, `${req.params.id}.png`);
+  
+    if (fs.existsSync(imagePath)) {
+      res.sendFile(imagePath);
+    } else {
+      res.status(404).send('Image not found');
+    }
+});
+
+
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
