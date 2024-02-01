@@ -10,9 +10,15 @@ app.use(cors({
 }));
 app.use(express.json({ limit: '50mb' })); 
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use('/data', express.static(path.join(__dirname, 'data')));
 
 const upload = multer({ dest: 'uploads/' });
 
+
+const dataDir = path.join(__dirname, 'data');
+if (!fs.existsSync(dataDir)) {
+  fs.mkdirSync(dataDir);
+}
 
 app.post('/api/save', upload.single('image'), (req, res) => {
   const id = req.body.id;
@@ -24,11 +30,6 @@ app.post('/api/save', upload.single('image'), (req, res) => {
     ...settings, 
     timestamp: timestamp 
   };
-
-  const dataDir = path.join(__dirname, 'data');
-  if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir);
-  }
   
   const imagePath = path.join(dataDir, `${id}.png`);
   fs.renameSync(image.path, imagePath);
@@ -42,39 +43,29 @@ app.post('/api/save', upload.single('image'), (req, res) => {
 });
 
 
-app.get('/api/images', (req, res) => {
-    const dataDir = path.join(__dirname, 'data');
-    const files = fs.readdirSync(dataDir);
-  
-    const images = files
-      .filter(file => file.endsWith('.png')) 
-      .map(file => {
-        const id = path.basename(file, '.png');
-        const settingsPath = path.join(dataDir, `${id}-settings.json`);
-        let settings = {};
-  
-        if (fs.existsSync(settingsPath)) {
-          settings = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));
-        }
-  
-        return {
-          id: id,
-          imageUrl: `/api/image/${id}`, 
-          settings: settings
-        };
-      });
-  
-    res.json(images);
+app.get('/api/gallery', (req, res) => {
+    try {
+        const files = fs.readdirSync(dataDir);
+        const images = files.filter(file => file.endsWith('.png')).map(file => {
+            return {
+                id: path.basename(file, '.png'),
+                imageUrl: `/data/${file}`, // URL to access the static image
+            };
+        });
+        res.json(images);
+    } catch (error) {
+        console.error("Error in /api/gallery:", error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
-app.get('/api/image/:id', (req, res) => {
-    const dataDir = path.join(__dirname, 'data');
-    const imagePath = path.join(dataDir, `${req.params.id}.png`);
-  
-    if (fs.existsSync(imagePath)) {
-      res.sendFile(imagePath);
+app.get('/api/settings/:id', (req, res) => {
+    const settingsPath = path.join(dataDir, `${req.params.id}-settings.json`);
+    if (fs.existsSync(settingsPath)) {
+        const settings = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));
+        res.json(settings);
     } else {
-      res.status(404).send('Image not found');
+        res.status(404).send('Settings not found');
     }
 });
 
