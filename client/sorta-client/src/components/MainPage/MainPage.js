@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import "./MainPage.scss";
 import axios from 'axios';
 import {v4 as uuidv4} from 'uuid';
-import { Link } from 'react-router-dom';
 
 const MainPage = () => {
   const [image, setImage] = useState(null);
@@ -190,7 +189,6 @@ const MainPage = () => {
 
   return (
     <div>
-      <Link to="/gallery">Gallery</Link>
       <section className={`${imageIsLandscape ? 'main-page--landscape' : 'main-page--portrait'}`}>
         <div className='main-page__canvas-container'>
           <canvas ref={canvasRef} className='main-page__canvas'></canvas> 
