@@ -1,0 +1,31 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header--logo {
+    margin: 1rem 0 1rem 2.5rem;
+}
+.nav {
+    width: 50%;
+}
+.nav-list {
+    display: flex;
+    justify-content: flex-end;
+}
+.nav-item {
+    margin: 1rem 2.5rem;
+    position: relative; 
+    
+    .active-star {
+        display: none; 
+        position: absolute;
+        bottom: 40px; 
+        left: 10%;
+        transform: translateX(-50%); 
+    }
+}
+
+.active-link .active-star {
+    display: block; 
+}
