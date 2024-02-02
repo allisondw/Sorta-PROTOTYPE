@@ -15,6 +15,7 @@ function App() {
         <Route path="/create" element={<CreatePage />}/>
         <Route path="/gallery" element={<GalleryPage/>} />
         <Route path="/image/:id" element={<SelectedImage />} />
+        <Route path="/edit/:id" element={<CreatePage/>} />
       </Routes>
     </BrowserRouter>
     

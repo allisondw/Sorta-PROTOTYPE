@@ -5,12 +5,17 @@ const app = express();
 const cors = require('cors');
 const multer = require('multer');
 
-app.use(cors({
-    origin: 'http://localhost:3000'
-}));
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 app.use(express.json({ limit: '50mb' })); 
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
-app.use('/data', express.static(path.join(__dirname, 'data')));
+app.use('/data', express.static(path.join(__dirname, 'data')), (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000'); 
+    next();
+});
 
 const upload = multer({ dest: 'uploads/' });
 
@@ -37,8 +42,6 @@ app.post('/api/save', upload.single('image'), (req, res) => {
   const settingsPath = path.join(dataDir, `${id}-settings.json`);
   fs.writeFileSync(settingsPath, JSON.stringify(savedDetails, null, 2));
 
-  
-
   res.status(200).json({ message: 'Image and settings saved', id: id, time: timestamp });
 });
 
@@ -49,7 +52,7 @@ app.get('/api/gallery', (req, res) => {
         const images = files.filter(file => file.endsWith('.png')).map(file => {
             return {
                 id: path.basename(file, '.png'),
-                imageUrl: `/data/${file}`, // URL to access the static image
+                imageUrl: `/data/${file}`, 
             };
         });
         res.json(images);

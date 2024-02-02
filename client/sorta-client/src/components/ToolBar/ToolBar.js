@@ -15,6 +15,7 @@ const ToolBar = ({
   setSortingDirection,
   handleSave,
   clearSettings,
+  editMode,
  }) => {
     const handleSliderChange = (e) => {
         const newValue = 255 - Number(e.target.value);
@@ -27,9 +28,15 @@ const ToolBar = ({
 
   return (
     <div className={`${imageIsLandscape ? 'landscape-tool-bar' : 'portrait-tool-bar'}`} >
-    <input type="file" id="upload" onChange={handleImageUpload} disabled={isProcessing} className="upload"/>
-<label htmlFor="upload" className="file-upload-label"><p className='file-upload-label-text'>Upload new image&nbsp; &nbsp; &nbsp; &nbsp;+</p><input type="file" id="upload" onChange={handleImageUpload} disabled={isProcessing} className="upload"/></label>
-
+        { !editMode && ( 
+      <>
+        <input type="file" id="upload" onChange={handleImageUpload} disabled={isProcessing} className="upload"/>
+        <label htmlFor="upload" className="file-upload-label">
+          <p className='file-upload-label-text'>Upload new image&nbsp; &nbsp; &nbsp; &nbsp;+</p>
+          <input type="file" id="upload" onChange={handleImageUpload} disabled={isProcessing} className="upload"/>
+        </label>
+      </>
+    )}
       {/* <button onClick={processImage} disabled={!image || isProcessing} className='process-img'>Process Image</button> */}
      
             <input 
