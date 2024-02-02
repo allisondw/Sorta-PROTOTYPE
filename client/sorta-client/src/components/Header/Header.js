@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import "./Header.scss";
 import Logo from "../../assets/svgs/sorta-logo.svg";
 import ActiveStar from "../../assets/svgs/active-star.svg";
@@ -8,6 +8,9 @@ import Login from "../../assets/svgs/login-nav.svg";
 import Gallery from "../../assets/svgs/gallery-nav.svg";
 
 const Header = () => {
+    const location = useLocation();
+    const isCreateOrEditActive = location.pathname === '/create' || location.pathname.includes('/edit');
+    const isGalleryOrImageActive = location.pathname === '/gallery' || location.pathname.includes('/image');
 
     return (
         <header className="header">
@@ -21,17 +24,17 @@ const Header = () => {
                             </NavLink>
                             </li>
                         <li className="nav-item ">
-                            <NavLink to="/create" className={({ isActive }) => (isActive ? "active-link" : "")}>
+                            <NavLink to="/create" className={isCreateOrEditActive ? "active-link" : ""}>
                                 <img src={Create} alt="create"/>
-                                <img src={ActiveStar} className="active-star"  alt="active"/>
+                                {isCreateOrEditActive && <img src={ActiveStar} className="active-star" alt="active"/>}
                             </NavLink>
                             </li>
                         <li className="nav-item ">
-                            <NavLink to="/gallery" className={({ isActive }) => (isActive ? "active-link" : "")}>
+                            <NavLink to="/gallery" className={isGalleryOrImageActive ? "active-link" : ""}>
                                 <img src={Gallery} alt="gallery"/>
-                                <img src={ActiveStar} className="active-star" alt="active" />
+                                {isGalleryOrImageActive && <img src={ActiveStar} className="active-star" alt="active" />}
                             </NavLink>
-                            </li>
+                        </li>
                     </ul>
             </nav>
         </header>
