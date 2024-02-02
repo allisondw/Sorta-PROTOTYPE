@@ -84,6 +84,10 @@ const CreatePage = () => {
     const handleSave = async () => {
       const id = uuidv4();
       const canvas = canvasRef.current;
+      const imageDimensions = {
+        width: canvas.width,
+        height: canvas.height
+      };
     
       canvas.toBlob(async (blob) => {
         const formData = new FormData();
@@ -93,6 +97,7 @@ const CreatePage = () => {
           sortingThreshold,
           colorChannel,
           sortingDirection,
+          dimensions: imageDimensions
         }));
        
     
@@ -221,7 +226,6 @@ const CreatePage = () => {
                 handleSave={handleSave}
                 clearSettings={clearSettings}
                 editMode={editMode}
-                
             />
         </section>
       </div>
