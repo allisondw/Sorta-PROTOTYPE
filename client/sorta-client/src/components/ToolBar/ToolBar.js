@@ -37,7 +37,7 @@ const ToolBar = ({
         </label>
       </>
     )}
-      {/* <button onClick={processImage} disabled={!image || isProcessing} className='process-img'>Process Image</button> */}
+      <button onClick={processImage} disabled={!image || isProcessing} className='process-img'>Process Image</button>
      
             <input 
                 id="thresh-slider"
