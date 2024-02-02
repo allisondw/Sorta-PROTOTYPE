@@ -3,11 +3,11 @@ import ToolBar from '../ToolBar/ToolBar';
 import "./CreatePage.scss";
 import axios from 'axios';
 import {v4 as uuidv4} from 'uuid';
-
+import { useParams } from 'react-router-dom';
 
 
 const CreatePage = () => {
-
+    const { id } = useParams();
     const [image, setImage] = useState(null);
     const canvasRef = useRef(null);
     const [isProcessing, setIsProcessing] = useState(false);
@@ -16,6 +16,7 @@ const CreatePage = () => {
     const [colorChannel, setColorChannel] = useState(null);
     const [sortingDirection, setSortingDirection] = useState('horizontal');
     const [imageIsLandscape, setImageIsLandscape] = useState(true);
+    const editMode = Boolean(id);
   
     const handleImageUpload = (fileOrEvent) => {
       let file = fileOrEvent instanceof File ? fileOrEvent : fileOrEvent.target.files[0];
@@ -28,6 +29,8 @@ const CreatePage = () => {
       const canvas = canvasRef.current;
       const ctx = canvas.getContext('2d');
       const img = new Image();
+
+      img.crossOrigin = "anonymous"; 
     
       img.onload = () => {
         canvas.width = img.width;
@@ -46,6 +49,13 @@ const CreatePage = () => {
         drawImageOnCanvas(image);
       }
     }, [image]);
+
+    useEffect(() => {
+        if (id) {
+          const imageUrl = `http://localhost:8080/data/${id}.png`;
+          setImage(imageUrl); 
+        }
+    }, [id]);
 
     const processImage = () => {
       if (!originalImageData) return;
@@ -210,6 +220,7 @@ const CreatePage = () => {
                 setSortingDirection={setSortingDirection}
                 handleSave={handleSave}
                 clearSettings={clearSettings}
+                editMode={editMode}
                 
             />
         </section>

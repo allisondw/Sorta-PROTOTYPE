@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import "./SelectedImage.scss";
 
 const SelectedImage = () => {
     const { id } = useParams();
     const [imageSettings, setImageSettings] = useState({});
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchImageDetails = async () => {
@@ -31,6 +32,7 @@ const SelectedImage = () => {
                 <p>Sorting Direction: {imageSettings.sortingDirection}</p>
                 <p>{new Date(imageSettings.timestamp).toLocaleDateString()}</p>
             </div>
+            <button onClick={() => navigate(`/edit/${id}`)} className="edit-button">Edit Image</button>
         </div>
     )
 };
