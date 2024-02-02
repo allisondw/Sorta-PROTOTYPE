@@ -11,6 +11,7 @@
     width: 50%;
 }
 .nav-list {
+    list-style-type: none;
     display: flex;
     justify-content: flex-end;
 }
@@ -21,12 +22,20 @@
     .active-star {
         display: none; 
         position: absolute;
-        bottom: 40px; 
+        bottom: 24px; 
         left: 10%;
-        transform: translateX(-50%); 
+        transform: translateX(-60%); 
+        width: 24px;
+        height: auto;
     }
+
 }
 
 .active-link .active-star {
     display: block; 
+}
+
+.nav-item img {
+    width: 100px; 
+    height: auto; 
 }
