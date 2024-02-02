@@ -42,7 +42,7 @@ const ImageDropZone = ({ onImageDrop, image, handleImageUpload }) => {
             onChange={handleImageUpload} 
             onClick={(event) => event.stopPropagation()} 
             accepts="image/*"/>
-            Drag and Drop Image Here or Click to Upload
+            Drag and Drop Image Here
         </div>
     );
 }
