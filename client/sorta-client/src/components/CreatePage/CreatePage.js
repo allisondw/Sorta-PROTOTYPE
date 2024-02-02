@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
+import ToolBar from '../ToolBar/ToolBar';
 import "./CreatePage.scss";
 import axios from 'axios';
 import {v4 as uuidv4} from 'uuid';
+
 
 
 const CreatePage = () => {
@@ -44,8 +46,7 @@ const CreatePage = () => {
         drawImageOnCanvas(image);
       }
     }, [image]);
-  
-  
+
     const processImage = () => {
       if (!originalImageData) return;
   
@@ -82,8 +83,8 @@ const CreatePage = () => {
           sortingThreshold,
           colorChannel,
           sortingDirection,
-  
         }));
+       
     
         try {
           const res = await axios.post('http://localhost:8080/api/save', formData, {
@@ -195,55 +196,22 @@ const CreatePage = () => {
           <div className='create-page__canvas-container'>
             <canvas ref={canvasRef} className='create-page__canvas'></canvas> 
           </div>
-          <div className={`${imageIsLandscape ? 'landscape-tool-bar' : 'portrait-tool-bar'}`}>
-            <input id="upload" type="file" onChange={handleImageUpload} disabled={isProcessing} className='upload'/>
-            <button onClick={processImage} disabled={!image || isProcessing} className='process-img'>Process Image</button>
-            <input 
-              id="thresh-slider"
-              type="range" 
-              min="0" 
-              max="255" 
-              value={sortingThreshold} 
-              onChange={(e) => setSortingThreshold(Number(e.target.value))}
-              className='thresh-slider'
+            <ToolBar 
+                imageIsLandscape={imageIsLandscape}
+                isProcessing={isProcessing}
+                image={image}
+                sortingThreshold={sortingThreshold}
+                colorChannel={colorChannel}
+                sortingDirection={sortingDirection}
+                handleImageUpload={handleImageUpload}
+                processImage={processImage}
+                setSortingThreshold={setSortingThreshold}
+                setColorChannel={setColorChannel}
+                setSortingDirection={setSortingDirection}
+                handleSave={handleSave}
+                clearSettings={clearSettings}
+                
             />
-            <span className='thresh-slider-label'>Threshold: {sortingThreshold}</span>
-            <div>
-              <input 
-                type="radio" 
-                value="red" 
-                checked={colorChannel === 'red'} 
-                onChange={() => setColorChannel('red')} 
-                className='rgb-radio rgb-radio-red'
-                id="rgb-radio-red"
-              /> Red
-              <input 
-                type="radio" 
-                value="green" 
-                checked={colorChannel === 'green'} 
-                onChange={() => setColorChannel('green')} 
-                className='rgb-radio rgb-radio-green'
-                id="rgb-radio-green"
-              /> Green
-              <input 
-                type="radio" 
-                value="blue" 
-                checked={colorChannel === 'blue'} 
-                onChange={() => setColorChannel('blue')} 
-                className='rgb-radio rgb-radio-blue'
-                id="rgb-radio-blue"
-              /> Blue
-            </div>
-            <div>
-              <label className='sorting-direction-label'>Sorting Direction:</label>
-              <select value={sortingDirection} onChange={(event) => setSortingDirection(event.target.value)} className='sorting-direction-dropdown' id="sorting-direction-dropdown">
-                <option value="horizontal">Horizontal</option>
-                <option value="vertical">Vertical</option>
-              </select>
-            </div>
-            <button onClick={handleSave} className='save-image-btn'>Save Image</button>
-            <button onClick={clearSettings} className='clear-settings-btn'>Clear Settings</button>
-          </div>
         </section>
       </div>
     );
