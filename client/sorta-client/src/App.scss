@@ -1,13 +1,16 @@
+@use "./styles/partials/global" as *;
+
 body {
   width: 100vw;
   height: 100vh;
   position: relative;
-  overflow: hidden; 
+  overflow: auto;
   z-index: 0; 
+  font-family: $font-family;
   
   &::before {
     content: "";
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
