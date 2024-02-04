@@ -122,6 +122,27 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
+app.post('/api/login', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const [users] = await db.execute('SELECT * FROM users WHERE email = ?', [email]);
+        if (users.length === 0) {
+            return res.status(404).send('User not found');
+        }
+        const user = users[0];
+        const passwordMatch = await bcrypt.compare(password, user.passwordHash);
+        if (!passwordMatch) {
+            return res.status(401).send('Incorrect password');
+        }
+        res.send('Login Successful');
+    } catch (error) {
+        console.error("Error logging in: ", error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
+
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

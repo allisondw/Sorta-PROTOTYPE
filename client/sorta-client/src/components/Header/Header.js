@@ -7,7 +7,7 @@ import Create from "../../assets/svgs/create-nav.svg";
 import Login from "../../assets/svgs/login-nav.svg";
 import Gallery from "../../assets/svgs/gallery-nav.svg";
 
-const Header = () => {
+const Header = ({ openLoginModal, openRegistrationModal }) => {
     const location = useLocation();
     const isCreateOrEditActive = location.pathname === '/create' || location.pathname.includes('/edit');
     const isGalleryOrImageActive = location.pathname === '/gallery' || location.pathname.includes('/image');
@@ -17,18 +17,18 @@ const Header = () => {
             <div className="header--logo"><NavLink to="/"><img src={Logo} alt="sorta logo" /></NavLink></div>
             <nav className="nav">     
                     <ul className="nav-list">
-                        <li className="nav-item ">
-                            <NavLink to="/login" className={({ isActive }) => (isActive ? "active-link" : "")}>
-                                <img src={Login} alt="login"/>
+                        <li className="nav-item">
+                            <div className="nav-link" onClick={openLoginModal}>
+                                <img src={Login} alt="login" />
                                 <img src={ActiveStar} className="active-star" alt="active" />
-                            </NavLink>
-                            </li>
+                            </div>
+                        </li>
                         <li className="nav-item ">
                             <NavLink to="/create" className={isCreateOrEditActive ? "active-link" : ""}>
                                 <img src={Create} alt="create"/>
                                 {isCreateOrEditActive && <img src={ActiveStar} className="active-star" alt="active"/>}
                             </NavLink>
-                            </li>
+                        </li>
                         <li className="nav-item ">
                             <NavLink to="/gallery" className={isGalleryOrImageActive ? "active-link" : ""}>
                                 <img src={Gallery} alt="gallery"/>
