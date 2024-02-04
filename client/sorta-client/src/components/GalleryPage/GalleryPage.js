@@ -10,7 +10,6 @@ const GalleryPage = () => {
         const fetchImages = async () => {
             try {
                 const res = await axios.get('http://localhost:8080/api/gallery');
-                console.log(res.data);
                 setImages(res.data);
 
             } catch (error) {
