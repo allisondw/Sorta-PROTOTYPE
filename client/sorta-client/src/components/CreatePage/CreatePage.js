@@ -14,7 +14,7 @@ const CreatePage = () => {
     const [isProcessing, setIsProcessing] = useState(false);
     const [sortingThreshold, setSortingThreshold] = useState(100);
     const [originalImageData, setOriginalImageData] = useState(null);
-    const [colorChannel, setColorChannel] = useState(null);
+    const [colorChannel, setColorChannel] = useState("");
     const [sortingDirection, setSortingDirection] = useState('horizontal');
     const [imageIsLandscape, setImageIsLandscape] = useState(true);
     const editMode = Boolean(id);
