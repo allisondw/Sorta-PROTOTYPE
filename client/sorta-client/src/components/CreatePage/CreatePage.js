@@ -4,7 +4,7 @@ import "./CreatePage.scss";
 import axios from 'axios';
 import {v4 as uuidv4} from 'uuid';
 import { useParams } from 'react-router-dom';
-
+import Waiting from "../../assets/svgs/waiting for pixels....svg";
 
 const CreatePage = () => {
     const { id } = useParams();
@@ -209,6 +209,7 @@ const CreatePage = () => {
       <div>
         <section className={`${imageIsLandscape ? 'create-page--landscape' : 'create-page--portrait'}`}>
           <div className='create-page__canvas-container'>
+            {!image && <img src={Waiting} alt="Waiting for pixels" className='waiting-svg'/>}
             <canvas ref={canvasRef} className='create-page__canvas'></canvas> 
           </div>
             <ToolBar 
