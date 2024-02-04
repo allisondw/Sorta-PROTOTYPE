@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import "./SelectedImage.scss";
+import DetailsStar from "../../assets/svgs/details-star.svg";
 
 const SelectedImage = () => {
     const { id } = useParams();
@@ -21,18 +22,22 @@ const SelectedImage = () => {
             fetchImageDetails();
         }
     }, [id]);
+    console.log(imageSettings.dimensions);
 
     const imageSrc = `http://localhost:8080/data/${id}.png`;
     return (
-        <div>
+        <div className='selected-image-container'>
             {imageSrc && <img src={imageSrc} alt="glitch art" className='selected-image' />}
-            <div className='settings-div'>
-                <p>Sorting Threshold: {imageSettings.sortingThreshold}</p>
-                <p>Color Channel: {imageSettings.colorChannel}</p>
-                <p>Sorting Direction: {imageSettings.sortingDirection}</p>
-                <p>{new Date(imageSettings.timestamp).toLocaleDateString()}</p>
-            </div>
-            <button onClick={() => navigate(`/edit/${id}`)} className="edit-button">Edit Image</button>
+            <article className='settings-container'>
+                <div className='settings-div'>
+                    <div className='description-line-div'><p>Sorting Threshold</p><img src={DetailsStar} alt="" className='details-star'/><p>{imageSettings.sortingThreshold}</p></div>
+                    <div className='description-line-div'><p>Color Channel</p><img src={DetailsStar} alt="" className='details-star'/><p>{imageSettings.colorChannel}</p></div>
+                    <div className='description-line-div'><p>Sorting Direction</p><img src={DetailsStar} alt="" className='details-star'/><p>{imageSettings.sortingDirection}</p></div>
+                    {imageSettings.dimensions && <div className='description-line-div'><p>Dimensions</p><img src={DetailsStar} alt="" className='details-star'/><p>{imageSettings.dimensions.width} · {imageSettings.dimensions.height}</p></div>}
+                    <div className='description-line-div'><p>Date Created</p><img src={DetailsStar} alt="" className='details-star'/><p>{new Date(imageSettings.timestamp).toLocaleDateString()}</p></div>
+                </div>
+                <button onClick={() => navigate(`/edit/${id}`)} className="edit-button">Edit Image</button>
+            </article>
         </div>
     )
 };

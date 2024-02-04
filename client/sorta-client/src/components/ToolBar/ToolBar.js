@@ -47,6 +47,7 @@ const ToolBar = ({
         />
         <span className='thresh-slider-label'>STRENGTH</span>
       <div>
+
       <div>
         <select value={colorChannel} onChange={(event) => setColorChannel(event.target.value)} className='color-channel-dropdown' id='color-channel-dropdown'>
             <option value="">Sort by RGB Channel &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; +</option>

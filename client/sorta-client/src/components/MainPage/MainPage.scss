@@ -1,62 +1,13 @@
 
-
-.main-page--landscape {
+.container {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin: 4rem 2rem;
-    .main-page__canvas-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-    }
-    .main-page__canvas {
-        width: 70%;
-        height: 70%;
-        display: block;
-        border-radius: 5px;
-        margin-bottom: 1rem;
-    }
-    .landscape-tool-bar {
-        background-color: grey;
-        padding: 2rem;
-        width: 100%;
-        border-radius: 5px;
-    }
-
-
-}
-.main-page--portrait {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-around;
-    margin: 4rem 2rem;
-
-    .main-page__canvas-container {
-        display: flex;
-        justify-content: center;
-        overflow: hidden;
-    }
-
-    .main-page__canvas {
-        width: 80%;
-        height: 80%;
-        border-radius: 5px;
-    }
-    .portrait-tool-bar {
-        background-color: grey;
-        padding: 1rem;
-        width: 20%;
-        height: 20rem;
-        display: flex;
-        flex-direction: column;
-        border-radius: 5px;
-        justify-content: space-between;
-    }
 }
 
-// .sorting-direction-dropdown {
-
-// }
+.waiting-main {
+    height: 30px;
+    margin-top: 20rem;
+    
+}
 
