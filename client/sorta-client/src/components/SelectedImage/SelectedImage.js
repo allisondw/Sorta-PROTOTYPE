@@ -12,7 +12,7 @@ const SelectedImage = () => {
     useEffect(() => {
         const fetchImageDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8080/api/settings/${id}`);
+                const res = await axios.get(`http://localhost:8080/api/details/${id}`);
                 setImageSettings(res.data)
             } catch (error) {
                 console.error("Error fetching image: ", error);
@@ -22,12 +22,22 @@ const SelectedImage = () => {
             fetchImageDetails();
         }
     }, [id]);
-    console.log(imageSettings.dimensions);
 
-    const imageSrc = `http://localhost:8080/data/${id}.png`;
+    const handleDelete = async () => {
+        const isConfirmed = window.confirm('Are you sure you want to delete this image?');
+        if (isConfirmed) {
+            try {
+                await axios.delete(`http://localhost:8080/api/delete/${id}`);
+                navigate('/gallery'); 
+            } catch (error) {
+                console.error('Error deleting image:', error);
+            }
+        }
+    };
+
     return (
         <div className='selected-image-container'>
-            {imageSrc && <img src={imageSrc} alt="glitch art" className='selected-image' />}
+            {imageSettings.imageUrl && <img src={`http://localhost:8080${imageSettings.imageUrl}`} alt="Selected Art" className='selected-image' />}
             <article className='settings-container'>
                 <div className='settings-div'>
                     <div className='description-line-div'><p>Sorting Threshold</p><img src={DetailsStar} alt="" className='details-star'/><p>{imageSettings.sortingThreshold}</p></div>
@@ -37,6 +47,7 @@ const SelectedImage = () => {
                     <div className='description-line-div'><p>Date Created</p><img src={DetailsStar} alt="" className='details-star'/><p>{new Date(imageSettings.timestamp).toLocaleDateString()}</p></div>
                 </div>
                 <button onClick={() => navigate(`/edit/${id}`)} className="edit-button">Edit Image</button>
+                <button onClick={handleDelete} className="delete-button">Delete Image</button>
             </article>
         </div>
     )
