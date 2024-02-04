@@ -20,8 +20,6 @@ const ToolBar = ({
     const handleSliderChange = (e) => {
         const newValue = 255 - Number(e.target.value);
         setSortingThreshold(newValue);
-        
-        // Calculate the new background style for the slider
         const percentage = ((255 - newValue) / 255) * 100;
         e.target.style.background = `linear-gradient(to right, #D9E8B8 0%, #D9E8B8 ${percentage}%, #ddd ${percentage}%, #ddd 100%)`;
     };
@@ -37,27 +35,25 @@ const ToolBar = ({
         </label>
       </>
     )}
-      {/* <button onClick={processImage} disabled={!image || isProcessing} className='process-img'>Process Image</button> */}
-     
-            <input 
-                id="thresh-slider"
-                type="range" 
-                min="0" 
-                max="255" 
-                value={255 - sortingThreshold} 
-                onChange={handleSliderChange}
-                className='thresh-slider'
-            />
-            <span className='thresh-slider-label'>STRENGTH</span>
+      <button onClick={processImage} disabled={!image || isProcessing} className='process-img'>Process Image</button>
+        <input 
+          id="thresh-slider"
+          type="range" 
+          min="0" 
+          max="255" 
+          value={255 - sortingThreshold} 
+          onChange={handleSliderChange}
+          className='thresh-slider'
+        />
+        <span className='thresh-slider-label'>STRENGTH</span>
       <div>
-        <div>
+      <div>
         <select value={colorChannel} onChange={(event) => setColorChannel(event.target.value)} className='color-channel-dropdown' id='color-channel-dropdown'>
             <option value="">Sort by RGB Channel &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; +</option>
             <option value="red">Red</option>
             <option value="green">Green</option>
             <option value="blue">Blue</option>
         </select>
-
       </div>
       <div>
         <select value={sortingDirection} onChange={(event) => setSortingDirection(event.target.value)} className='sorting-direction-dropdown' id="sorting-direction-dropdown">
