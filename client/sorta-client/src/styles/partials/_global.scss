@@ -2,6 +2,12 @@
     font-family: "Neutral Face";
     src: url("../../assets/fonts/neutral_face/NeutralFace.otf");
 }
+@font-face {
+    font-family: "Pangaia";
+    src: url("../../assets/fonts/pangaia_otf/PPPangaia-MediumItalic.otf");
+}
 
 $font-family: "Neutral Face", Helvetica, Arial, sans-serif;
+
+$secondary-font: "Pangaia", Garamond, serif;
 
