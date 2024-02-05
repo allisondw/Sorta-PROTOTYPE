@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import "./LoginModal.scss";
 
-const Login = ({ closeModal, onSwitchToRegister }) => {
+const Login = ({ closeModal, onSwitchToRegister, onSuccessfulLogin }) => {
     const [credentials, setCredentials] = useState({
         email: '',
         password: ''
@@ -13,13 +13,13 @@ const Login = ({ closeModal, onSwitchToRegister }) => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value });
     };
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:8080/api/login', credentials);
             console.log(response.data); 
-            alert('Login successful!');
-            closeModal();
+            onSuccessfulLogin(response.data.user);
         } catch (error) {
             console.error('Login error:', error.response.data);
             setErrors(error.response.data);
