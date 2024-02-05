@@ -36,14 +36,14 @@ List the functionality that your app will include. These can be written as user 
 #### Image upload: 
     users can upload JPEG and PNG files to apply the pixel-sorting
 
-#### Real-time pixel-sorting algorithm: 
-    A dynamic, real-time rendering of pixel-sorting effects as users adjust settings
+#### Pixel-sorting algorithm: 
+    A dynamic rendering of pixel-sorting effects as users adjust settings
 
 #### Customizable Sorting Parameters: 
     Tools to adjust various aspects of the pixel-sorting algorithm, such as orientation and sorting method.
 
 #### Image download option: 
-    Ability for users to download the manipulated image in its original format. 
+    Ability for users to download the manipulated image. 
 
 #### Gallery of User-Created Images
     Lets users save their created images to a gallery to browse through later
@@ -58,14 +58,17 @@ List technologies that will be used in your app, including any libraries to save
 #### React: 
     for building the UI
 
+#### Axios:
+    for making calls to the API
+
 #### Node.js/Express:
     for the backend server
 
 #### HTML Canvas API: 
     for the real-time canvas feature, rendering the sorted pixels
 
-#### potential libraries: 
-    react-drop, file-saver, react-slider
+#### Multer:
+    for saving/serving files
 
 ### APIs
 
@@ -75,7 +78,7 @@ List any external sources of data that will be used in your app.
     for handing the image data on the front end
 
 #### Backend API (of my making):
-    for storing and retrieving gallery images
+    for storing and retrieving images and user settings
 
 
 ### Sitemap
@@ -88,12 +91,14 @@ List the pages of your app with brief descriptions. You can show this visually, 
 #### About Page:
     Information about using the app, FAQ, about glitch art and pixel sorting
 
-#### Login Page:
-    Users need to login in to save images to/view images in the Gallery
 
 #### Gallery Page:
     Gallery of images created by the user
 
+#### Image Page:
+    Selected image with settings used to create it
+
+    
 
 ### Mockups
 
@@ -140,7 +145,12 @@ List endpoints that your server will implement, including HTTP methods, paramete
     - parameters: 'userId/username'
     - example response: { success: true, images: [<list-of-gallery-images>] }
 
-#### POST /save-image
+#### GET /image
+##### Retrieves selected image from gallery
+    - parameters: 'imageId'
+    - example response: { success: true, image: [<image>] settings: <settings> }
+
+#### POST /save
 ##### Saves a created image to the user's gallery
     - parameters: 'userId/username', 'imageData'
     - example response: { success: true,  message: 'Image saved' }

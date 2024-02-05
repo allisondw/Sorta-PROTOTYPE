@@ -1,0 +1,40 @@
+.modal-content {
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.notification {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; /* Adjust as needed */
+}
+
+.star-svg {
+    width: 100px; /* Adjust size as needed */
+    height: auto;
+    animation: rotate-star 2s infinite alternate;
+}
+
+.success-text {
+    font-size: 5px; /* Adjust based on your SVG size */
+    fill: black; /* Text color */
+}
+
+@keyframes rotate-star {
+    from {
+        transform: rotate(-5deg);
+    }
+    to {
+        transform: rotate(5deg);
+    }
+}
