@@ -7,6 +7,19 @@ const multer = require('multer');
 const db = require('./database');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const jwt = require('jsonwebtoken');
+
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  if (token == null) return res.sendStatus(401);
+
+  jwt.verify(token, 'secretKey', (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+};
 
 const corsOptions = {
     origin: 'http://localhost:3000',
@@ -36,33 +49,47 @@ if (!fs.existsSync(dataDir)) {
   fs.mkdirSync(dataDir);
 }
 
-app.post('/api/save', upload.single('image'), async (req, res) => {
+app.post('/api/save', authenticateToken, upload.single('image'), async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) return res.status(401).send('No token provided');
+
+  try {
+    const decoded = jwt.verify(token, 'secretKey');
+    const userId = decoded.userId;
     const { sortingThreshold, colorChannel, sortingDirection, dimensions } = JSON.parse(req.body.settings);
     const imageUrl = `/data/${req.file.filename}`; 
-    const id = req.body.id;
 
-    const dimensionsValue = JSON.stringify(dimensions);
+    const query = `
+      INSERT INTO image_settings (userId, imageUrl, sortingThreshold, colorChannel, sortingDirection, dimensions)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `;
+    await db.execute(query, [userId, imageUrl, sortingThreshold, colorChannel, sortingDirection, JSON.stringify(dimensions)]);
 
-    try {
-      const query = `
-        INSERT INTO image_settings (id, imageUrl, sortingThreshold, colorChannel, sortingDirection, dimensions)
-        VALUES (?, ?, ?, ?, ?, ?)
-      `;
-      await db.execute(query, [id, imageUrl, sortingThreshold, colorChannel, sortingDirection, dimensionsValue]);
-
-      res.status(200).json({ message: 'Image and settings saved', id: id, imageUrl, dimensionsValue });
-    } catch (error) {
-      console.error('Error saving image and settings:', error);
-      res.status(500).send('Internal Server Error');
+    res.status(200).json({ message: 'Image and settings saved', imageUrl });
+  } catch (error) {
+    if (error instanceof jwt.JsonWebTokenError) {
+      return res.status(403).send('Invalid token');
     }
+    console.error('Error saving image and settings:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
-app.get('/api/gallery', async (req, res) => {
+app.get('/api/gallery', authenticateToken, async (req, res) => {
+  const token = req.headers.authorization?.split(' ')[1];
+  if (!token) return res.status(401).send('No token provided');
+
     try {
-      const [rows] = await db.execute('SELECT id, imageUrl FROM image_settings');
-      res.json(rows);
+      const decoded = jwt.verify(token, 'secretKey');
+      const userId = decoded.userId;
+
+      const [images] = await db.execute('SELECT * FROM image_settings WHERE userId = ?', [userId]);
+      res.json(images);
     } catch (error) {
-      console.error("Error in /api/gallery:", error);
+      if (error instanceof jwt.JsonWebTokenError) {
+        return res.status(403).send('Invalid token');
+      }
+      console.error("Error in fetching user images", error);
       res.status(500).send('Internal Server Error');
     }
 });
@@ -84,7 +111,7 @@ app.get('/api/details/:id', async (req, res) => {
     }
 });
 
-app.delete('/api/delete/:id', async (req, res) => {
+app.delete('/api/delete/:id', authenticateToken, async (req, res) => {
     const { id } = req.params;
   
     try {
@@ -133,15 +160,25 @@ app.post('/api/login', async (req, res) => {
         const passwordMatch = await bcrypt.compare(password, user.passwordHash);
         if (!passwordMatch) {
             return res.status(401).send('Incorrect password');
-        }
-        res.send('Login Successful');
+        };
+        const token = jwt.sign(
+          { userId: user.id }, 
+          'secretKey', 
+          { expiresIn: '24h' }
+        );
+
+        res.json({
+          message: 'Login Successful',
+          token: token,
+          user: {
+            name: user.firstName
+          }
+        });
     } catch (error) {
         console.error("Error logging in: ", error);
         res.status(500).send('Internal Server Error');
     }
 });
-
-
 
 
 const PORT = process.env.PORT || 8080;
