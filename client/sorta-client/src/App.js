@@ -5,48 +5,28 @@ import SelectedImage from "./components/SelectedImage/SelectedImage.js";
 import MainPage from "./components/MainPage/MainPage.js";
 import CreatePage from "./components/CreatePage/CreatePage.js";
 import Header from "./components/Header/Header.js";
-import LoginModal from "./components/LoginModal/LoginModal";
-import RegisterModal from "./components/RegisterModal/RegisterModal.js";
+import AuthPage from './components/AuthPage/AuthPage.js';
 import "./App.scss";
 
 function App() {
-    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-    const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
     const [userName, setUserName] = useState('');
-
-    const openLoginModal = () => setIsLoginModalOpen(true);
-    const closeLoginModal = () => setIsLoginModalOpen(false);
-    const openRegistrationModal = () => {
-        closeLoginModal(); 
-        setIsRegistrationModalOpen(true);
-    };
-    const closeRegistrationModal = () => setIsRegistrationModalOpen(false); 
 
     const handleSuccessfulLogin = (user) => {
         setUserName(user.name); 
-        setIsLoginModalOpen(false); 
     };
 
     return (
         <BrowserRouter>
-            <Header 
-                openLoginModal={openLoginModal}
-                openRegistrationModal={openRegistrationModal}
-                userName={userName}
-            />
+            <Header userName={userName} />
             <Routes>
                 <Route path="/" element={<MainPage />} />
                 <Route path="/create" element={<CreatePage />} />
                 <Route path="/gallery" element={<GalleryPage />} />
                 <Route path="/image/:id" element={<SelectedImage />} />
                 <Route path="/edit/:id" element={<CreatePage />} />
+                <Route path="/login" element={<AuthPage isLogin={true} onSuccessfulLogin={handleSuccessfulLogin} />} />
+                <Route path="/register" element={<AuthPage isLogin={false} onSuccessfulLogin={handleSuccessfulLogin} />} />
             </Routes>
-            {isLoginModalOpen && <LoginModal 
-                onSuccessfulLogin={handleSuccessfulLogin}
-                onSwitchToRegister={openRegistrationModal} 
-                closeModal={closeLoginModal} 
-            />}
-            {isRegistrationModalOpen && <RegisterModal closeModal={closeRegistrationModal} />}
         </BrowserRouter>
     );
 }
