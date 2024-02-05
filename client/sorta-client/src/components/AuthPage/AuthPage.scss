@@ -1,0 +1,70 @@
+@use "../../styles/partials/global" as *;
+
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -10rem;
+    height: 100vh; 
+    color: #D9E8B8; 
+    
+  }
+  
+  .auth-container {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 2rem;
+    border-radius: 20px; 
+    width: 400px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  
+    h2 {
+      margin-bottom: 2rem;
+      text-align: center;
+      font-family: $font-family;
+    }
+  
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    input {
+      border: none;
+      background-color: rgba(255, 255, 255, 0.2); 
+      border-radius: 20px; 
+      margin-bottom: 1rem;
+      padding: 1rem;
+      color: inherit; 
+  
+      &::placeholder {
+        color: #D9E8B8;
+        font-family: $font-family; 
+      }
+    }
+  
+    .error {
+      color: red; 
+      margin-bottom: 1rem;
+      font-family: $font-family;
+    }
+  
+    button {
+        border: solid 1px rgba(217, 232, 184, 0.75);
+        background-color: rgba(217, 232, 184, 0.2);
+      color: #D9E8B8; 
+      padding: 1rem;
+      border-radius: 20px; 
+      cursor: pointer;
+      margin-bottom: 1rem;
+      transition: background-color 0.3s ease;
+      font-family: $font-family;
+  
+      &:hover {
+        background-color: darken(#D9E8B8, 10%);
+      }
+    }
+    .switch-btn {
+        margin: auto;
+    }
+  }
+  
