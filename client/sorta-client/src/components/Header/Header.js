@@ -7,7 +7,7 @@ import Create from "../../assets/svgs/create-nav.svg";
 import Login from "../../assets/svgs/login-nav.svg";
 import Gallery from "../../assets/svgs/gallery-nav.svg";
 
-const Header = ({ openLoginModal, openRegistrationModal }) => {
+const Header = ({ openLoginModal, userName }) => {
     const location = useLocation();
     const isCreateOrEditActive = location.pathname === '/create' || location.pathname.includes('/edit');
     const isGalleryOrImageActive = location.pathname === '/gallery' || location.pathname.includes('/image');
@@ -15,6 +15,9 @@ const Header = ({ openLoginModal, openRegistrationModal }) => {
     return (
         <header className="header">
             <div className="header--logo"><NavLink to="/"><img src={Logo} alt="sorta logo" /></NavLink></div>
+            {userName && (
+                <div className="user-greeting"> Welcome, {userName}! </div> 
+                )}
             <nav className="nav">     
                     <ul className="nav-list">
                         <li className="nav-item">
