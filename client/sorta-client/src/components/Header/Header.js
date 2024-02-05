@@ -7,10 +7,11 @@ import Create from "../../assets/svgs/create-nav.svg";
 import Login from "../../assets/svgs/login-nav.svg";
 import Gallery from "../../assets/svgs/gallery-nav.svg";
 
-const Header = ({ openLoginModal, userName }) => {
+const Header = ({ userName }) => {
     const location = useLocation();
     const isCreateOrEditActive = location.pathname === '/create' || location.pathname.includes('/edit');
     const isGalleryOrImageActive = location.pathname === '/gallery' || location.pathname.includes('/image');
+    const isLoginActive = location.pathname === '/login';
 
     return (
         <header className="header">
@@ -21,10 +22,10 @@ const Header = ({ openLoginModal, userName }) => {
             <nav className="nav">     
                     <ul className="nav-list">
                         <li className="nav-item">
-                            <div className="nav-link" onClick={openLoginModal}>
+                            <NavLink to="/login" className={isLoginActive ? "active-link" : ""}>
                                 <img src={Login} alt="login" />
-                                <img src={ActiveStar} className="active-star" alt="active" />
-                            </div>
+                                {isLoginActive && <img src={ActiveStar} className="active-star" alt="active"/>}
+                            </NavLink>
                         </li>
                         <li className="nav-item ">
                             <NavLink to="/create" className={isCreateOrEditActive ? "active-link" : ""}>
