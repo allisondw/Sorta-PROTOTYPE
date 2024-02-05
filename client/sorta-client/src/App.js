@@ -12,6 +12,7 @@ import "./App.scss";
 function App() {
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
     const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
+    const [userName, setUserName] = useState('');
 
     const openLoginModal = () => setIsLoginModalOpen(true);
     const closeLoginModal = () => setIsLoginModalOpen(false);
@@ -21,11 +22,17 @@ function App() {
     };
     const closeRegistrationModal = () => setIsRegistrationModalOpen(false); 
 
+    const handleSuccessfulLogin = (user) => {
+        setUserName(user.name); 
+        setIsLoginModalOpen(false); 
+    };
+
     return (
         <BrowserRouter>
             <Header 
                 openLoginModal={openLoginModal}
                 openRegistrationModal={openRegistrationModal}
+                userName={userName}
             />
             <Routes>
                 <Route path="/" element={<MainPage />} />
@@ -35,6 +42,7 @@ function App() {
                 <Route path="/edit/:id" element={<CreatePage />} />
             </Routes>
             {isLoginModalOpen && <LoginModal 
+                onSuccessfulLogin={handleSuccessfulLogin}
                 onSwitchToRegister={openRegistrationModal} 
                 closeModal={closeLoginModal} 
             />}
