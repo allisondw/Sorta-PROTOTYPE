@@ -88,32 +88,32 @@ Artists, designers, and hobbyists interested in digital art
 ## Initial Sprint Roadmap
 
 #### 1. Set up React Environment
-    - [x] initialize react project with create-react-app
-    - [x] project structure: organize project into major components, assets, and utility folders
+- [x] initialize react project with create-react-app
+- [x] project structure: organize project into major components, assets, and utility folders
 #### 2. Build UI
-    - [x] create required components
-    - [x] implement the image upload feature through a file input element
-    - [x] develop a control panel for user settings/sorting parameters
+- [x] create required components
+- [x] implement the image upload feature through a file input element
+- [x] develop a control panel for user settings/sorting parameters
 #### 3. Build out Canvas and pixel-sorting logic
-    - [x] use the <canvas> element to display uploaded image
-    - [x] implement the pixel-sorting algorithm as a javascript function that can be imported into the react component
-    - [x] connect the GUI control panel to dynamically update the image processing parameters
+- [x] use the <canvas> element to display uploaded image
+- [x] implement the pixel-sorting algorithm as a javascript function that can be imported into the react component
+- [x] connect the GUI control panel to dynamically update the image processing parameters
 #### 4. Manage State and Data Flow
-    - [x] Use useEffect, useRef, and useState hooks to manage and update the various states (uploaded image, control panel values, image processing)
-    - [x] Find way of handling data flow between parent and child components throughout the image manipulation process and during control panel changes
+- [x] Use useEffect, useRef, and useState hooks to manage and update the various states (uploaded image, control panel values, image processing)
+- [x] Find way of handling data flow between parent and child components throughout the image manipulation process and during control panel changes
 #### 5. Render the Processed Image
-    - [x] use the Canvas API to draw the processed image onto the canvas whenever the image or control parameters change
+- [x] use the Canvas API to draw the processed image onto the canvas whenever the image or control parameters change
 #### 6. Testing/Debugging 
-    - [x] test all components individually and test entire app to make sure they work as expected
-    - [x] debug using the browser dev tools and React Developer tools
-    - [x] get users to test, implement necessary changes based on user feedback and research
+- [x] test all components individually and test entire app to make sure they work as expected
+- [x] debug using the browser dev tools and React Developer tools
+- [x] get users to test, implement necessary changes based on user feedback and research
 #### 7. Styling
-    - [x] use Sass styling to create a user-friendly interface
-    - [x] make site responsive, possibly create a mobile version
+- [x] use Sass styling to create a user-friendly interface
+- [x] make site responsive, possibly create a mobile version
 #### 8. Deploy (?)
-    - [ ] this would possibly happen with Heroku/S3
+- [ ] this would possibly happen with Heroku/S3
 #### 9. Optimize
-    - [ ] Lots to learn in order ot fully optimize
+- [ ] Lots to learn in order ot fully optimize
 
 ## Next Steps
 
