@@ -20,16 +20,16 @@ Artists, designers, and hobbyists interested in digital art
 ### Features
 
 #### Image upload: 
-Users can upload JPEG and PNG files to apply the pixel-sorting
++ Users can upload JPEG and PNG files to apply the pixel-sorting
 
 #### Pixel-sorting algorithm: 
-A dynamic rendering of pixel-sorting effects as users adjust settings
++ A dynamic rendering of pixel-sorting effects as users adjust settings
 
 #### Customizable Sorting Parameters: 
-Tools to adjust various aspects of the pixel-sorting algorithm, such as orientation and sorting method.
++ Tools to adjust various aspects of the pixel-sorting algorithm, such as orientation and sorting method.
 
 #### Gallery of User-Created Images
-Lets users save their created images to a gallery to browse through later
++ Lets users save their created images to a gallery to browse through later
 
 
 ### Tech Stack
@@ -54,36 +54,36 @@ Lets users save their created images to a gallery to browse through later
 
 
 #### Create Page: 
-Where users upload, manipulate, and download their images
++ Where users upload, manipulate, and download their images
 
 #### Gallery Page:
-Gallery of images created by the user
++ Gallery of images created by the user
 
 #### Image Page:
-Selected image with settings used to create it
++ Selected image with settings used to create it
 
 
 ### Endpoints
 
 #### POST /upload: 
 ##### Receives the image file from the user
-    - parameters: 'imageFile'
-    - example response: { success: true, message: "Image upload complete" }
++ parameters: 'imageFile'
++ example response: { success: true, message: "Image upload complete" }
 
 #### GET /gallery
 ##### Retrieves all saved images from user
-    - parameters: 'userId/username'
-    - example response: { success: true, images: [<list-of-gallery-images>] }
++ parameters: 'userId/username'
++ example response: { success: true, images: [<list-of-gallery-images>] }
 
 #### GET /image
 ##### Retrieves selected image from gallery
-    - parameters: 'imageId'
-    - example response: { success: true, image: [<image>] settings: <settings> }
++ parameters: 'imageId'
++ example response: { success: true, image: [<image>] settings: <settings> }
 
 #### POST /save
 ##### Saves a created image to the user's gallery
-    - parameters: 'userId/username', 'imageData'
-    - example response: { success: true,  message: 'Image saved' }
++ parameters: 'userId/username', 'imageData'
++ example response: { success: true,  message: 'Image saved' }
 
 ## Sprint Roadmap
 
