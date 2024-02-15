@@ -36,19 +36,19 @@ Lets users save their created images to a gallery to browse through later
 ### Tech Stack
 
 #### React: 
-~for building the UI~
+/ for building the UI /
 
 #### Axios:
-for making calls to the API
+/ for making calls to the API /
 
 #### Node.js/Express:
-for the backend server
+/ for the backend server /
 
 #### HTML Canvas API: 
-for the real-time canvas feature, rendering the sorted pixels on the front-end
+/ for the real-time canvas feature, rendering the sorted pixels on the front-end /
 
 #### Multer:
-for saving/serving files
+/ for saving/serving files /
 
 
 ### Sitemap
