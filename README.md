@@ -36,7 +36,7 @@ Lets users save their created images to a gallery to browse through later
 ### Tech Stack
 
 #### React: 
-/for building the UI/
+~for building the UI~
 
 #### Axios:
 for making calls to the API
