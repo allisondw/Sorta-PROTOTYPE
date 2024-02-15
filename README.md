@@ -118,4 +118,8 @@ Artists, designers, and hobbyists interested in digital art
 ## Next Steps
 
 #### Mobile iOS appplication
-    - I'd like to take this prototype and transform it from the CRUD-focused SPA it is now to a mobile digital art tool available initially through the App store, then for Android users as well. 
+I'd like to take this prototype and transform it from the CRUD-focused SPA it is now to a mobile digital art tool available initially through the App store, then for Android users as well:
+[] Remove unnecessary CRUD-focused features
+[] Use React Native/alternative to repackage into iOS compatible application
+[] Test and test and test
+[] Submit for App store review
