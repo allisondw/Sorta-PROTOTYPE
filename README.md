@@ -3,35 +3,22 @@ A GUI for live-rendered pixel-sorting; image manipulation
 # Project Title
 
 #### Sorta
-
-## Overview
-
-What is your app? Brief description in a couple of sentences.
-
-    A UI for creating glitch art by manipulating uploaded images using pixel-sorting, 
+Sorta is a UI for creating glitch art by manipulating uploaded images using pixel-sorting, 
     with real-time previews of the images as they are being edited. 
 
 ### Problem
-
-Why is your app needed? Background information around any pain points or other reasons.
-
     Pixel-sorting can be tricky and users may not have the tools they need to manipulate the images 
     they want while seeing the results in real-time. 
     My app will provide an intuitive interface that simplifies the process, 
     allowing users to experiment and create glitch art without the need for in-depth programming knowledge.
 
 ### User Profile
-
-Who will use your app? How will they use it? Any special considerations that your app must take into account.
-
     Artists, designers, and hobbyists interested in digital art 
     and glitch aesthetics will find this app particularly useful. 
     It is designed to handle JPEG and PNG files to accommodate a wide range 
     of image formats used by the target audience.
 
 ### Features
-
-List the functionality that your app will include. These can be written as user stories or descriptions with related details. Do not describe _how_ these features are implemented, only _what_ needs to be implemented.
 
 #### Image upload: 
     users can upload JPEG and PNG files to apply the pixel-sorting
@@ -42,18 +29,11 @@ List the functionality that your app will include. These can be written as user 
 #### Customizable Sorting Parameters: 
     Tools to adjust various aspects of the pixel-sorting algorithm, such as orientation and sorting method.
 
-#### Image download option: 
-    Ability for users to download the manipulated image. 
-
 #### Gallery of User-Created Images
     Lets users save their created images to a gallery to browse through later
 
 
-## Implementation
-
 ### Tech Stack
-
-List technologies that will be used in your app, including any libraries to save time or provide more functionality. Be sure to research any potential limitations.
 
 #### React: 
     for building the UI
@@ -65,32 +45,17 @@ List technologies that will be used in your app, including any libraries to save
     for the backend server
 
 #### HTML Canvas API: 
-    for the real-time canvas feature, rendering the sorted pixels
+    for the real-time canvas feature, rendering the sorted pixels on the front-end
 
 #### Multer:
     for saving/serving files
 
-### APIs
-
-List any external sources of data that will be used in your app.
-
-#### Canvas API: 
-    for handing the image data on the front end
-
-#### Backend API (of my making):
-    for storing and retrieving images and user settings
-
 
 ### Sitemap
 
-List the pages of your app with brief descriptions. You can show this visually, or write it out.
 
-#### Home Page: 
+#### Create Page: 
     Where users upload, manipulate, and download their images
-
-#### About Page:
-    Information about using the app, FAQ, about glitch art and pixel sorting
-
 
 #### Gallery Page:
     Gallery of images created by the user
@@ -98,42 +63,8 @@ List the pages of your app with brief descriptions. You can show this visually, 
 #### Image Page:
     Selected image with settings used to create it
 
-    
-
-### Mockups
-
-Provide visuals of your app's screens. You can use tools like Figma or pictures of hand-drawn sketches.
-
-#### Mockup of main page and control panel
-
-<img width="402" alt="sorta_main-mockup" src="https://github.com/allisondw/Sorta_pixel-sorting/assets/102693788/6c2b2d14-a2cc-4175-a61a-4fdc09be2cd3">
-
-
-#### Mockup of image gallery
-
-<img width="980" alt="sorta-gallery-mockup" src="https://github.com/allisondw/Sorta_pixel-sorting/assets/102693788/3af3bc52-8964-43ad-8b43-898ce0f1669b">
-
-
-#### Demo video of Canvas API dynamic render of pixel-sorting
-
-https://github.com/allisondw/Sorta_pixel-sorting/assets/102693788/feea807d-a0fc-41cf-a00d-53264b557bc1
-
-
-
-
-### Data
-
-Describe your data and the relationships between them. You can show this visually using diagrams, or write it out. 
-
-#### User Image Data: 
-    The image uploaded by the user, stored temporarily during the manipulation process
-
-#### Pixel Data: 
-    The data structure used to store and manipulate pixel information from the uploaded image
 
 ### Endpoints
-
-List endpoints that your server will implement, including HTTP methods, parameters, and example responses.
 
 #### POST /upload: 
 ##### Receives the image file from the user
@@ -155,21 +86,11 @@ List endpoints that your server will implement, including HTTP methods, paramete
     - parameters: 'userId/username', 'imageData'
     - example response: { success: true,  message: 'Image saved' }
 
-### Auth
-
-Does your project include any login or user profile functionality? If so, describe how authentication/authorization will be implemented.
-
- 
-
-## Roadmap
-
-Scope your project as a sprint. Break down the tasks that will need to be completed and map out timeframes for implementation. Think about what you can reasonably complete before the due date. The more detail you provide, the easier it will be to build.
-
+## Sprint Roadmap
 
 #### 1. Set up React Environment
     - initialize react project with create-react-app
     - project structure: organize project into major components, assets, and utility folders
-
 #### 2. Build UI
     - create required components
     - implement the image upload feature through a file input element
@@ -191,15 +112,11 @@ Scope your project as a sprint. Break down the tasks that will need to be comple
     - use Sass styling to create a user-friendly interface
     - make site responsive, possibly create a mobile version
 #### 8. Deploy (?)
-    - this would possibly happen on Heroku
+    - this would possibly happen with Heroku/S3
 #### 9. Optimize
-    - I may not know enough to make this fully optimized, but I'll try 
+    - Lots to learn in order ot fully optimize
 
-## Nice-to-haves
+## Next Steps
 
-Your project will be marked based on what you committed to in the above document. Under nice-to-haves, you can list any additional features you may complete if you have extra time, or after finishing.
-
-#### Nice-to-haves:
-    User profiles/
-    Video manipulation
-    Links to share to social media platforms
+#### Mobile iOS appplication
+    - I'd like to take this prototype and transform it from the CRUD-focused SPA it is now to a mobile digital art tool available initially through the App store, then for Android users as well. 
