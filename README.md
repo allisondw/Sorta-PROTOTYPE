@@ -7,13 +7,13 @@ Sorta is a UI for creating glitch art by manipulating uploaded images using pixe
     with real-time previews of the images as they are being edited. 
 
 ### Problem
-    Pixel-sorting can be tricky and users may not have the tools they need to manipulate the images 
+Pixel-sorting can be tricky and users may not have the tools they need to manipulate the images 
     they want while seeing the results in real-time. 
     My app will provide an intuitive interface that simplifies the process, 
     allowing users to experiment and create glitch art without the need for in-depth programming knowledge.
 
 ### User Profile
-    Artists, designers, and hobbyists interested in digital art 
+Artists, designers, and hobbyists interested in digital art 
     and glitch aesthetics will find this app particularly useful. 
     It is designed to handle JPEG and PNG files to accommodate a wide range 
     of image formats used by the target audience.
@@ -21,47 +21,47 @@ Sorta is a UI for creating glitch art by manipulating uploaded images using pixe
 ### Features
 
 #### Image upload: 
-    users can upload JPEG and PNG files to apply the pixel-sorting
+Users can upload JPEG and PNG files to apply the pixel-sorting
 
 #### Pixel-sorting algorithm: 
-    A dynamic rendering of pixel-sorting effects as users adjust settings
+A dynamic rendering of pixel-sorting effects as users adjust settings
 
 #### Customizable Sorting Parameters: 
-    Tools to adjust various aspects of the pixel-sorting algorithm, such as orientation and sorting method.
+Tools to adjust various aspects of the pixel-sorting algorithm, such as orientation and sorting method.
 
 #### Gallery of User-Created Images
-    Lets users save their created images to a gallery to browse through later
+Lets users save their created images to a gallery to browse through later
 
 
 ### Tech Stack
 
 #### React: 
-    for building the UI
+for building the UI
 
 #### Axios:
-    for making calls to the API
+for making calls to the API
 
 #### Node.js/Express:
-    for the backend server
+for the backend server
 
 #### HTML Canvas API: 
-    for the real-time canvas feature, rendering the sorted pixels on the front-end
+for the real-time canvas feature, rendering the sorted pixels on the front-end
 
 #### Multer:
-    for saving/serving files
+for saving/serving files
 
 
 ### Sitemap
 
 
 #### Create Page: 
-    Where users upload, manipulate, and download their images
+Where users upload, manipulate, and download their images
 
 #### Gallery Page:
-    Gallery of images created by the user
+Gallery of images created by the user
 
 #### Image Page:
-    Selected image with settings used to create it
+Selected image with settings used to create it
 
 
 ### Endpoints
